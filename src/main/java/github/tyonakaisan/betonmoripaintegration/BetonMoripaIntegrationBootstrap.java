@@ -1,8 +1,7 @@
-package github.tyonakaisan.example;
+package github.tyonakaisan.betonmoripaintegration;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import github.tyonakaisan.example.command.CommandFactory;
 import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.plugin.bootstrap.PluginBootstrap;
 import io.papermc.paper.plugin.bootstrap.PluginProviderContext;
@@ -14,18 +13,17 @@ import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings({"UnstableApiUsage", "unused"})
 @DefaultQualifier(NonNull.class)
-public final class ExampleBootstrap implements PluginBootstrap {
+public final class BetonMoripaIntegrationBootstrap implements PluginBootstrap {
 
     private @MonotonicNonNull Injector injector;
 
     @Override
     public void bootstrap(final BootstrapContext context) {
         this.injector = Guice.createInjector(new BootstrapModule(context));
-        this.injector.getInstance(CommandFactory.class).registerViaBootstrap(context);
     }
 
     @Override
     public @NotNull JavaPlugin createPlugin(final PluginProviderContext context) {
-        return new Example(this.injector);
+        return new BetonMoripaIntegration(this.injector);
     }
 }

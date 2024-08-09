@@ -1,4 +1,4 @@
-package github.tyonakaisan.example;
+package github.tyonakaisan.betonmoripaintegration;
 
 import com.google.gson.Gson;
 import io.papermc.paper.plugin.loader.PluginClasspathBuilder;
@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 @SuppressWarnings({"UnstableApiUsage", "unused"})
 @DefaultQualifier(NonNull.class)
-public final class ExampleLoader implements PluginLoader {
+public final class BetonMoripaIntegrationLoader implements PluginLoader {
 
     @Override
     public void classloader(PluginClasspathBuilder classpathBuilder) {
