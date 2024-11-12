@@ -1,0 +1,39 @@
+[versions]
+run-paper = "2.3.0"
+shadow = "8.1.1"
+plugin-yml-paper = "0.6.0"
+
+paper-api = "1.21.1-R0.1-SNAPSHOT"
+
+betonquest = "2.1.3"
+quickshop-bukkit = "6.2.0.6"
+quickshop-api = "6.2.0.6"
+huskhomes = "4.7"
+griefprevention = "16.18.2"
+
+configurate-hocon = "4.2.0-SNAPSHOT"
+adventure-serializer-configurate4 = "4.17.0"
+
+guice = "7.0.0"
+checker-qual = "3.44.0"
+exp4j = "0.4.8"
+
+[plugins]
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
+run-paper = { id = "xyz.jpenilla.run-paper", version.ref = "run-paper" }
+plugin-yml-paper = { id = "net.minecrell.plugin-yml.paper", version.ref = "plugin-yml-paper" }
+
+[libraries]
+paper-api = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper-api" }
+
+betonquest = { group = "org.betonquest", name = "betonquest", version.ref = "betonquest" }
+quickshop-bukkit = { group = "com.ghostchu", name = "quickshop-bukkit", version.ref = "quickshop-bukkit" }
+quickshop-api = { group = "com.ghostchu", name = "quickshop-api", version.ref = "quickshop-api" }
+huskhomes = { group = "net.william278.huskhomes", name = "huskhomes-bukkit", version.ref = "huskhomes" }
+griefprevention = { group = "com.github.GriefPrevention", name = "GriefPrevention", version.ref = "griefprevention" }
+
+configurate-hocon = { group = "org.spongepowered", name = "configurate-hocon", version.ref = "configurate-hocon" }
+adventure-serializer-configurate4 = { group = "net.kyori", name = "adventure-serializer-configurate4", version.ref = "adventure-serializer-configurate4" }
+
+guice = { group = "com.google.inject", name = "guice", version.ref = "guice" }
+exp4j = { group = "net.objecthunter", name = "exp4j", version.ref = "exp4j" }

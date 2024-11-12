@@ -1,12 +1,11 @@
 plugins {
     id("java")
-    id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("xyz.jpenilla.run-paper") version "2.3.0"
-    id("net.minecrell.plugin-yml.paper") version "0.6.0"
+    alias(libs.plugins.shadow)
+    alias(libs.plugins.run.paper)
+    alias(libs.plugins.plugin.yml.paper)
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
     maven("https://jitpack.io")
     maven("https://oss.sonatype.org/content/repositories/snapshots/")
@@ -25,23 +24,23 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("net.objecthunter", "exp4j", "0.4.8")
+    testImplementation(libs.exp4j)
 
     // Paper
-    compileOnly("io.papermc.paper", "paper-api", "1.21-R0.1-SNAPSHOT")
+    compileOnly(libs.paper.api)
 
     // Plugins
-    compileOnly("org.betonquest", "betonquest", "2.1.3")
-    compileOnly("com.ghostchu", "quickshop-bukkit", "6.2.0.6")
-    compileOnly("com.ghostchu", "quickshop-api", "6.2.0.6")
-    compileOnly("net.william278.huskhomes", "huskhomes-bukkit", "4.7")
-    compileOnly("com.github.GriefPrevention", "GriefPrevention", "16.18.2")
+    compileOnly(libs.betonquest)
+    compileOnly(libs.quickshop.bukkit)
+    compileOnly(libs.quickshop.api)
+    compileOnly(libs.huskhomes)
+    compileOnly(libs.griefprevention)
 
     // Others
-    paperLibrary("com.google.inject", "guice", "7.0.0")
+    paperLibrary(libs.guice)
 }
 
-version = "1.0.0"
+version = "1.1.0"
 
 paper {
     authors = listOf("tyonakaisan")
@@ -73,9 +72,9 @@ paper {
 
 tasks {
     val paperPlugins = runPaper.downloadPluginsSpec {
-        github("BetonQuest", "BetonQuest", "v2.1.3", "BetonQuest.jar")
-        github("QuickShop-Community", "QuickShop-Hikari", "6.2.0.6", "QuickShop-Hikari-6.2.0.6.jar")
-        github("WiIIiam278", "HuskHomes", "4.7", "HuskHomes-Paper-4.7.jar")
+        github("BetonQuest", "BetonQuest", "v${libs.versions.betonquest.get()}", "BetonQuest.jar")
+        github("QuickShop-Community", "QuickShop-Hikari", libs.versions.quickshop.bukkit.get(), "QuickShop-Hikari-${libs.versions.quickshop.bukkit.get()}.jar")
+        github("WiIIiam278", "HuskHomes", libs.versions.huskhomes.get(), "HuskHomes-Paper-${libs.versions.huskhomes.get()}.jar")
         github("MilkBowl", "Vault", "1.7.3", "Vault.jar")
         url("https://ci.minebench.de/job/FakeEconomy/lastSuccessfulBuild/artifact/target/FakeEconomy.jar")
         url("https://dev.bukkit.org/projects/grief-prevention/files/5471866/download")
@@ -91,7 +90,7 @@ tasks {
     }
 
     runServer {
-        minecraftVersion("1.21")
+        minecraftVersion("1.21.1")
         downloadPlugins.from(paperPlugins)
     }
 
