@@ -3,10 +3,11 @@ package github.tyonakaisan.betonmoripaintegration;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
-import github.tyonakaisan.betonmoripaintegration.integration.griefprevention.GriefPreventionClaimCreateObjective;
-import github.tyonakaisan.betonmoripaintegration.integration.huskhomes.HuskHomesCreateObjective;
-import github.tyonakaisan.betonmoripaintegration.integration.quickshop.QuickShopCreateObjective;
-import github.tyonakaisan.betonmoripaintegration.integration.quickshop.QuickShopSellObjective;
+import github.tyonakaisan.betonmoripaintegration.objective.extra.*;
+import github.tyonakaisan.betonmoripaintegration.objective.integration.griefprevention.GriefPreventionClaimCreateObjective;
+import github.tyonakaisan.betonmoripaintegration.objective.integration.huskhomes.HuskHomesCreateObjective;
+import github.tyonakaisan.betonmoripaintegration.objective.integration.quickshop.QuickShopCreateObjective;
+import github.tyonakaisan.betonmoripaintegration.objective.integration.quickshop.QuickShopSellObjective;
 import org.betonquest.betonquest.BetonQuest;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,7 +30,6 @@ public final class BetonMoripaIntegration extends JavaPlugin {
     @Override
     public void onEnable() {
         final var betonQuest = BetonQuest.getInstance();
-
         if (griefPreventionLoaded()) {
             betonQuest.registerObjectives("claim", GriefPreventionClaimCreateObjective.class);
         }
@@ -42,6 +42,14 @@ public final class BetonMoripaIntegration extends JavaPlugin {
             betonQuest.registerObjectives("qssell", QuickShopSellObjective.class);
             betonQuest.registerObjectives("qscreate", QuickShopCreateObjective.class);
         }
+
+        // experimental
+        betonQuest.registerObjectives("extra:trade", TraderTradeObjective.class);
+        betonQuest.registerObjectives("extra:bucket", BucketEntityObjective.class);
+        betonQuest.registerObjectives("extra:breed", AnimalsBreedObjective.class);
+        betonQuest.registerObjectives("extra:raid", RaidObjective.class);
+        betonQuest.registerObjectives("extra:effect", PotionEffectObjective.class);
+        this.getComponentLogger().warn("Experimental objectives enabled. Use at your own risk as not all features have been fully debugged.");
     }
 
     @Override

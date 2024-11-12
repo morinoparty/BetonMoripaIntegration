@@ -11,11 +11,11 @@ import java.nio.file.Path;
 
 @SuppressWarnings("UnstableApiUsage")
 @DefaultQualifier(NonNull.class)
-public final class BootstrapModule extends AbstractModule {
+public final class BetonMoripaBootstrapModule extends AbstractModule {
 
     private final BootstrapContext context;
 
-    BootstrapModule(
+    BetonMoripaBootstrapModule(
             final BootstrapContext context
     ) {
         this.context = context;

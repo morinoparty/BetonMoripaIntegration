@@ -19,7 +19,7 @@ public final class BetonMoripaIntegrationBootstrap implements PluginBootstrap {
 
     @Override
     public void bootstrap(final BootstrapContext context) {
-        this.injector = Guice.createInjector(new BootstrapModule(context));
+        this.injector = Guice.createInjector(new BetonMoripaBootstrapModule(context));
     }
 
     @Override
