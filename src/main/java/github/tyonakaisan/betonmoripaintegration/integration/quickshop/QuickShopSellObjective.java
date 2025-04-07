@@ -1,6 +1,7 @@
-package github.tyonakaisan.betonmoripaintegration.objective.integration.quickshop;
+package github.tyonakaisan.betonmoripaintegration.integration.quickshop;
 
-import com.ghostchu.quickshop.api.event.ShopCreateEvent;
+import com.ghostchu.quickshop.api.event.economy.ShopPurchaseEvent;
+import com.ghostchu.quickshop.api.shop.ShopType;
 import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.Instruction;
 import org.betonquest.betonquest.api.Objective;
@@ -11,23 +12,20 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.framework.qual.DefaultQualifier;
 
-@DefaultQualifier(NonNull.class)
-public final class QuickShopCreateObjective extends Objective implements Listener {
+public class QuickShopSellObjective extends Objective implements Listener {
 
-    public QuickShopCreateObjective(final Instruction instruction) throws InstructionParseException {
+    public QuickShopSellObjective(final Instruction instruction) throws InstructionParseException {
         super(instruction);
     }
 
     @EventHandler
-    public void onCreate(final ShopCreateEvent event) {
-        event.getCreator()
+    public void onSell(final ShopPurchaseEvent event) {
+        event.getPurchaser()
                 .getBukkitPlayer()
                 .ifPresent(player -> {
                     final var profile = PlayerConverter.getID(player);
-                    if (this.containsPlayer(profile) && this.checkConditions(profile)) {
+                    if (this.containsPlayer(profile) && this.checkConditions(profile) && event.getShop().getShopType().equals(ShopType.BUYING)) {
                         this.completeObjective(profile);
                     }
                 });

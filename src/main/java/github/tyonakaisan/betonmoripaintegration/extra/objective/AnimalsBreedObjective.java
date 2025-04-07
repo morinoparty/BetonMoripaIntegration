@@ -1,6 +1,7 @@
-package github.tyonakaisan.betonmoripaintegration.objective.extra;
+package github.tyonakaisan.betonmoripaintegration.extra.objective;
 
-import github.tyonakaisan.betonmoripaintegration.util.InstructionParser;
+import github.tyonakaisan.betonmoripaintegration.extra.argument.ArgumentProperty;
+import github.tyonakaisan.betonmoripaintegration.extra.argument.parser.EnumArgumentParser;
 import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.Instruction;
 import org.betonquest.betonquest.api.CountingObjective;
@@ -17,8 +18,6 @@ import org.bukkit.event.entity.EntityBreedEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
-import java.util.List;
-
 /*
     For example:
         extra:breed count:3 entities:cow,pig
@@ -26,21 +25,20 @@ import java.util.List;
 @DefaultQualifier(NonNull.class)
 public final class AnimalsBreedObjective extends CountingObjective implements Listener {
 
-    private final List<EntityType> entities;
+    private final ArgumentProperty<EntityType> entityTypes;
 
-    public AnimalsBreedObjective(Instruction instruction) throws InstructionParseException {
+    public AnimalsBreedObjective(final Instruction instruction) throws InstructionParseException {
         super(instruction, "extra_breed");
-        this.targetAmount = instruction.getVarNum(instruction.getOptional("count", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
-        this.entities = InstructionParser.enumInstruction(EntityType.class)
-                .parse(instruction, "entities")
-                .toList();
+        this.targetAmount = instruction.getVarNum(instruction.getOptional("amount", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
+        this.entityTypes = new EnumArgumentParser<>(EntityType.class)
+                .parse(instruction, "entities");
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBreeding(final EntityBreedEvent event) {
         if (event.getBreeder() instanceof Player player) {
-            final var type = event.getEntity().getType();
-            if (!this.entities.contains(type)) {
+            final var entityType = event.getEntity().getType();
+            if (!this.entityTypes.containsOrEmpty(entityType)) {
                 return;
             }
 

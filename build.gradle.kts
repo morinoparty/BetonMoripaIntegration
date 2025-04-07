@@ -40,7 +40,7 @@ dependencies {
     paperLibrary(libs.guice)
 }
 
-version = "1.1.0"
+version = "1.3.0"
 
 paper {
     authors = listOf("tyonakaisan")
@@ -73,11 +73,13 @@ paper {
 tasks {
     val paperPlugins = runPaper.downloadPluginsSpec {
         github("BetonQuest", "BetonQuest", "v${libs.versions.betonquest.get()}", "BetonQuest.jar")
-        github("QuickShop-Community", "QuickShop-Hikari", libs.versions.quickshop.bukkit.get(), "QuickShop-Hikari-${libs.versions.quickshop.bukkit.get()}.jar")
+        modrinth("QuickShop-Hikari", "Qrp1IEXz")
         github("WiIIiam278", "HuskHomes", libs.versions.huskhomes.get(), "HuskHomes-Paper-${libs.versions.huskhomes.get()}.jar")
         github("MilkBowl", "Vault", "1.7.3", "Vault.jar")
+        hangar("PlaceholderAPI", libs.versions.placeholderapi.get())
         url("https://ci.minebench.de/job/FakeEconomy/lastSuccessfulBuild/artifact/target/FakeEconomy.jar")
         url("https://dev.bukkit.org/projects/grief-prevention/files/5471866/download")
+        url("https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/artifact/build/libs/ProtocolLib.jar")
     }
 
     compileJava {
@@ -90,7 +92,7 @@ tasks {
     }
 
     runServer {
-        minecraftVersion("1.21.1")
+        minecraftVersion("1.21.4")
         downloadPlugins.from(paperPlugins)
     }
 
