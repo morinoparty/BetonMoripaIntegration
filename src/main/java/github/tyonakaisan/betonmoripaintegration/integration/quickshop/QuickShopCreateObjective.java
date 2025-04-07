@@ -1,6 +1,6 @@
 package github.tyonakaisan.betonmoripaintegration.integration.quickshop;
 
-import com.ghostchu.quickshop.api.event.ShopCreateEvent;
+import com.ghostchu.quickshop.api.event.management.ShopCreateEvent;
 import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.Instruction;
 import org.betonquest.betonquest.api.Objective;
@@ -23,8 +23,8 @@ public final class QuickShopCreateObjective extends Objective implements Listene
 
     @EventHandler
     public void onCreate(final ShopCreateEvent event) {
-        event.getCreator()
-                .getBukkitPlayer()
+        event.shop()
+                .flatMap(shop -> shop.getOwner().getBukkitPlayer())
                 .ifPresent(player -> {
                     final var profile = PlayerConverter.getID(player);
                     if (this.containsPlayer(profile) && this.checkConditions(profile)) {

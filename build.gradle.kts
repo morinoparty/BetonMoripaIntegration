@@ -73,7 +73,7 @@ paper {
 tasks {
     val paperPlugins = runPaper.downloadPluginsSpec {
         github("BetonQuest", "BetonQuest", "v${libs.versions.betonquest.get()}", "BetonQuest.jar")
-        github("QuickShop-Community", "QuickShop-Hikari", libs.versions.quickshop.bukkit.get(), "QuickShop-Hikari-${libs.versions.quickshop.bukkit.get()}.jar")
+        modrinth("QuickShop-Hikari", "Qrp1IEXz")
         github("WiIIiam278", "HuskHomes", libs.versions.huskhomes.get(), "HuskHomes-Paper-${libs.versions.huskhomes.get()}.jar")
         github("MilkBowl", "Vault", "1.7.3", "Vault.jar")
         hangar("PlaceholderAPI", libs.versions.placeholderapi.get())
