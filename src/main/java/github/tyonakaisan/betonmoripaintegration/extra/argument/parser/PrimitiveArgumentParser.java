@@ -1,13 +1,13 @@
-package github.tyonakaisan.betonmoripaintegration.util;
+package github.tyonakaisan.betonmoripaintegration.extra.argument.parser;
 
 import org.betonquest.betonquest.Instruction;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
 @DefaultQualifier(NonNull.class)
-public final class InstructionPrimitiveParser {
+public final class PrimitiveArgumentParser {
 
-    private InstructionPrimitiveParser() {
+    private PrimitiveArgumentParser() {
     }
 
     public static boolean toBoolean(final Instruction instruction, final String key) {

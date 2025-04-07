@@ -1,6 +1,7 @@
-package github.tyonakaisan.betonmoripaintegration.objective.extra;
+package github.tyonakaisan.betonmoripaintegration.extra.objective;
 
-import github.tyonakaisan.betonmoripaintegration.util.InstructionParser;
+import github.tyonakaisan.betonmoripaintegration.extra.argument.ArgumentProperty;
+import github.tyonakaisan.betonmoripaintegration.extra.argument.parser.EnumArgumentParser;
 import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.Instruction;
 import org.betonquest.betonquest.api.CountingObjective;
@@ -17,8 +18,6 @@ import org.bukkit.event.player.PlayerBucketEntityEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
-import java.util.List;
-
 /*
     For example:
         bucketObj: "extra:bucket count:3 entities:cod,tropical_fish,salmon spawn_reasons:natural notify events:doneEvent"
@@ -26,29 +25,27 @@ import java.util.List;
 @DefaultQualifier(NonNull.class)
 public final class BucketEntityObjective extends CountingObjective implements Listener {
 
-    private final List<CreatureSpawnEvent.SpawnReason> spawnReasons;
-    private final List<EntityType> entities;
+    private final ArgumentProperty<CreatureSpawnEvent.SpawnReason> spawnReasons;
+    private final ArgumentProperty<EntityType> entityTypes;
 
     public BucketEntityObjective(Instruction instruction) throws InstructionParseException {
         super(instruction, "extra_bucket");
-        this.targetAmount = instruction.getVarNum(instruction.getOptional("count", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
-        this.spawnReasons = InstructionParser.enumInstruction(CreatureSpawnEvent.SpawnReason.class)
-                .parse(instruction, "spawn_reasons")
-                .toList();
-        this.entities = InstructionParser.enumInstruction(EntityType.class)
-                .parse(instruction, "entities")
-                .toList();
+        this.targetAmount = instruction.getVarNum(instruction.getOptional("amount", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
+        this.spawnReasons = new EnumArgumentParser<>(CreatureSpawnEvent.SpawnReason.class)
+                .parse(instruction, "spawn_reasons");
+        this.entityTypes = new EnumArgumentParser<>(EntityType.class)
+                .parse(instruction, "entities");
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBucket(final PlayerBucketEntityEvent event) {
         final var type = event.getEntity().getType();
-        if (!this.entities.contains(type)) {
+        if (!this.entityTypes.containsOrEmpty(type)) {
             return;
         }
 
-        final var reason = event.getEntity().getEntitySpawnReason();
-        if (!this.spawnReasons.contains(reason)) {
+        final var spawnReason = event.getEntity().getEntitySpawnReason();
+        if (!this.spawnReasons.containsOrEmpty(spawnReason)) {
             return;
         }
 

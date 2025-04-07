@@ -3,11 +3,12 @@ package github.tyonakaisan.betonmoripaintegration;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
-import github.tyonakaisan.betonmoripaintegration.objective.extra.*;
-import github.tyonakaisan.betonmoripaintegration.objective.integration.griefprevention.GriefPreventionClaimCreateObjective;
-import github.tyonakaisan.betonmoripaintegration.objective.integration.huskhomes.HuskHomesCreateObjective;
-import github.tyonakaisan.betonmoripaintegration.objective.integration.quickshop.QuickShopCreateObjective;
-import github.tyonakaisan.betonmoripaintegration.objective.integration.quickshop.QuickShopSellObjective;
+import github.tyonakaisan.betonmoripaintegration.extra.event.WeightedRandomEventFactory;
+import github.tyonakaisan.betonmoripaintegration.extra.objective.*;
+import github.tyonakaisan.betonmoripaintegration.integration.griefprevention.GriefPreventionClaimCreateObjective;
+import github.tyonakaisan.betonmoripaintegration.integration.huskhomes.HuskHomesCreateObjective;
+import github.tyonakaisan.betonmoripaintegration.integration.quickshop.QuickShopCreateObjective;
+import github.tyonakaisan.betonmoripaintegration.integration.quickshop.QuickShopSellObjective;
 import org.betonquest.betonquest.BetonQuest;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -49,7 +50,8 @@ public final class BetonMoripaIntegration extends JavaPlugin {
         betonQuest.registerObjectives("extra:breed", AnimalsBreedObjective.class);
         betonQuest.registerObjectives("extra:raid", RaidObjective.class);
         betonQuest.registerObjectives("extra:effect", PotionEffectObjective.class);
-        this.getComponentLogger().warn("Experimental objectives enabled. Use at your own risk as not all features have been fully debugged.");
+        betonQuest.getQuestRegistries().getEventTypes().registerCombined("weight", new WeightedRandomEventFactory(betonQuest.getVariableProcessor()));
+        this.getComponentLogger().info("Experimental feature enabled. Use at your own risk as not all features have been fully debugged.");
     }
 
     @Override

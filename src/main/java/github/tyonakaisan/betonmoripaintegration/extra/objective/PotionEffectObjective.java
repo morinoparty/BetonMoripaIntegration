@@ -1,7 +1,9 @@
-package github.tyonakaisan.betonmoripaintegration.objective.extra;
+package github.tyonakaisan.betonmoripaintegration.extra.objective;
 
-import github.tyonakaisan.betonmoripaintegration.util.InstructionParser;
-import github.tyonakaisan.betonmoripaintegration.util.InstructionPrimitiveParser;
+import github.tyonakaisan.betonmoripaintegration.extra.argument.ArgumentProperty;
+import github.tyonakaisan.betonmoripaintegration.extra.argument.parser.EnumArgumentParser;
+import github.tyonakaisan.betonmoripaintegration.extra.argument.parser.PrimitiveArgumentParser;
+import github.tyonakaisan.betonmoripaintegration.extra.argument.parser.RegistryArgumentParser;
 import io.papermc.paper.registry.RegistryKey;
 import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.Instruction;
@@ -22,13 +24,11 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
-import java.util.List;
-
 @DefaultQualifier(NonNull.class)
 public final class PotionEffectObjective extends CountingObjective implements Listener {
 
-    private final List<EntityPotionEffectEvent.Cause> causes;
-    private final List<PotionEffectType> potionEffectTypes;
+    private final ArgumentProperty<EntityPotionEffectEvent.Cause> causes;
+    private final ArgumentProperty<PotionEffectType> potionEffectTypes;
     private final VariableNumber requiredDuration;
     private final VariableNumber requiredAmplifier;
     private final boolean isAmbient;
@@ -36,17 +36,15 @@ public final class PotionEffectObjective extends CountingObjective implements Li
 
     public PotionEffectObjective(final Instruction instruction) throws InstructionParseException {
         super(instruction, "extra_effect");
-        this.targetAmount = instruction.getVarNum(instruction.getOptional("count", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
-        this.causes = InstructionParser.enumInstruction(EntityPotionEffectEvent.Cause.class)
-                .parse(instruction, "causes")
-                .toList();
-        this.potionEffectTypes = InstructionParser.registryInstruction(RegistryKey.MOB_EFFECT)
-                .parse(instruction, "effects")
-                .toList();
+        this.targetAmount = instruction.getVarNum(instruction.getOptional("amount", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
+        this.causes = new EnumArgumentParser<>(EntityPotionEffectEvent.Cause.class)
+                .parse(instruction, "causes");
+        this.potionEffectTypes = new RegistryArgumentParser<>(RegistryKey.MOB_EFFECT)
+                .parse(instruction, "effects");
         this.requiredDuration = instruction.getVarNum(instruction.getOptional("duration", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
         this.requiredAmplifier = instruction.getVarNum(instruction.getOptional("amplifier", "0"), VariableNumber.NOT_LESS_THAN_ZERO_CHECKER);
-        this.isAmbient = InstructionPrimitiveParser.toBoolean(instruction, "is_ambient");
-        this.isVisible = InstructionPrimitiveParser.toBoolean(instruction, "is_visible", true);
+        this.isAmbient = PrimitiveArgumentParser.toBoolean(instruction, "is_ambient");
+        this.isVisible = PrimitiveArgumentParser.toBoolean(instruction, "is_visible", true);
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -58,13 +56,13 @@ public final class PotionEffectObjective extends CountingObjective implements Li
             }
 
             // check cause
-            if (!this.causes.contains(event.getCause())) {
+            if (!this.causes.containsOrEmpty(event.getCause())) {
                 return;
             }
 
             // check types
             final var type = effect.getType();
-            if (!this.potionEffectTypes.contains(type)) {
+            if (!this.potionEffectTypes.containsOrEmpty(type)) {
                 return;
             }
 

@@ -1,7 +1,7 @@
-package github.tyonakaisan.betonmoripaintegration.objective.extra;
+package github.tyonakaisan.betonmoripaintegration.extra.objective;
 
 
-import github.tyonakaisan.betonmoripaintegration.util.InstructionPrimitiveParser;
+import github.tyonakaisan.betonmoripaintegration.extra.argument.parser.PrimitiveArgumentParser;
 import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.Instruction;
 import org.betonquest.betonquest.api.CountingObjective;
@@ -27,8 +27,8 @@ public final class RaidObjective extends CountingObjective implements Listener {
 
     public RaidObjective(final Instruction instruction) throws InstructionParseException {
         super(instruction, "extra_raid");
-        this.targetAmount = instruction.getVarNum(instruction.getOptional("count", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
-        this.isVictoryOnly = InstructionPrimitiveParser.toBoolean(instruction, "is_victory_only", true);
+        this.targetAmount = instruction.getVarNum(instruction.getOptional("amount", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
+        this.isVictoryOnly = PrimitiveArgumentParser.toBoolean(instruction, "is_victory_only", true);
         this.requiredBadOmenLevel = instruction.getVarNum(instruction.getOptional("bad_omen_level", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
         this.requiredPlayers = instruction.getVarNum(instruction.getOptional("players", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
     }

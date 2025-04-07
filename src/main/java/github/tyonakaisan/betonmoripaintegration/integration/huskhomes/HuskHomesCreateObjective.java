@@ -1,6 +1,6 @@
-package github.tyonakaisan.betonmoripaintegration.objective.integration.quickshop;
+package github.tyonakaisan.betonmoripaintegration.integration.huskhomes;
 
-import com.ghostchu.quickshop.api.event.ShopCreateEvent;
+import net.william278.huskhomes.event.HomeCreateEvent;
 import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.Instruction;
 import org.betonquest.betonquest.api.Objective;
@@ -15,22 +15,19 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
 @DefaultQualifier(NonNull.class)
-public final class QuickShopCreateObjective extends Objective implements Listener {
+public final class HuskHomesCreateObjective extends Objective implements Listener {
 
-    public QuickShopCreateObjective(final Instruction instruction) throws InstructionParseException {
+    public HuskHomesCreateObjective(final Instruction instruction) throws InstructionParseException {
         super(instruction);
     }
 
     @EventHandler
-    public void onCreate(final ShopCreateEvent event) {
-        event.getCreator()
-                .getBukkitPlayer()
-                .ifPresent(player -> {
-                    final var profile = PlayerConverter.getID(player);
-                    if (this.containsPlayer(profile) && this.checkConditions(profile)) {
-                        this.completeObjective(profile);
-                    }
-                });
+    public void onCreate(final HomeCreateEvent event) {
+        final var uuid = event.getOwner().getUuid();
+        final var profile = PlayerConverter.getID(Bukkit.getOfflinePlayer(uuid));
+        if (this.containsPlayer(profile) && this.checkConditions(profile)) {
+            this.completeObjective(profile);
+        }
     }
 
     @Override
