@@ -21,16 +21,16 @@ import org.jspecify.annotations.NonNull;
 @DefaultQualifier(NonNull.class)
 public final class RaidObjective extends CountingObjective implements Listener {
 
-    private final boolean isVictoryOnly;
-    private final VariableNumber requiredBadOmenLevel;
-    private final VariableNumber requiredPlayers;
+    private final boolean victoryOnly;
+    private final VariableNumber badOmenLevel;
+    private final VariableNumber players;
 
     public RaidObjective(final Instruction instruction) throws InstructionParseException {
         super(instruction, "extra_raid");
         this.targetAmount = instruction.getVarNum(instruction.getOptional("amount", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
-        this.isVictoryOnly = PrimitiveArgumentParser.toBoolean(instruction, "is_victory_only", true);
-        this.requiredBadOmenLevel = instruction.getVarNum(instruction.getOptional("bad_omen_level", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
-        this.requiredPlayers = instruction.getVarNum(instruction.getOptional("players", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
+        this.victoryOnly = PrimitiveArgumentParser.toBoolean(instruction, "victory_only", true);
+        this.badOmenLevel = instruction.getVarNum(instruction.getOptional("bad_omen_level", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
+        this.players = instruction.getVarNum(instruction.getOptional("players", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -38,7 +38,7 @@ public final class RaidObjective extends CountingObjective implements Listener {
         final var raid = event.getRaid();
 
         // check stop reason
-        if (this.isVictoryOnly && raid.getStatus() != Raid.RaidStatus.VICTORY) {
+        if (this.victoryOnly && raid.getStatus() != Raid.RaidStatus.VICTORY) {
             return;
         }
 
@@ -47,8 +47,8 @@ public final class RaidObjective extends CountingObjective implements Listener {
         winners.forEach(winner -> {
             try {
                 final var profile = PlayerConverter.getID(winner);
-                final var badOmenLevel = this.requiredBadOmenLevel.getValue(profile).intValue();
-                final var players = this.requiredPlayers.getValue(profile).intValue();
+                final var badOmenLevel = this.badOmenLevel.getValue(profile).intValue();
+                final var players = this.players.getValue(profile).intValue();
 
                 // check bad omen level & winners
                 if (badOmenLevel > raid.getBadOmenLevel() || players > winners.size()) {

@@ -31,8 +31,8 @@ public final class PotionEffectObjective extends CountingObjective implements Li
     private final ArgumentProperty<PotionEffectType> potionEffectTypes;
     private final VariableNumber requiredDuration;
     private final VariableNumber requiredAmplifier;
-    private final boolean isAmbient;
-    private final boolean isVisible;
+    private final boolean ambient;
+    private final boolean visible;
 
     public PotionEffectObjective(final Instruction instruction) throws InstructionParseException {
         super(instruction, "extra_effect");
@@ -43,8 +43,8 @@ public final class PotionEffectObjective extends CountingObjective implements Li
                 .parse(instruction, "effects");
         this.requiredDuration = instruction.getVarNum(instruction.getOptional("duration", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
         this.requiredAmplifier = instruction.getVarNum(instruction.getOptional("amplifier", "0"), VariableNumber.NOT_LESS_THAN_ZERO_CHECKER);
-        this.isAmbient = PrimitiveArgumentParser.toBoolean(instruction, "is_ambient");
-        this.isVisible = PrimitiveArgumentParser.toBoolean(instruction, "is_visible", true);
+        this.ambient = PrimitiveArgumentParser.toBoolean(instruction, "ambient");
+        this.visible = PrimitiveArgumentParser.toBoolean(instruction, "visible", true);
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -71,7 +71,7 @@ public final class PotionEffectObjective extends CountingObjective implements Li
             final var duration = this.requiredDuration.getValue(profile).intValue();
             final var amplifier = this.requiredAmplifier.getValue(profile).intValue();
             if (amplifier > effect.getAmplifier() || duration > effect.getDuration()
-                    || this.isAmbient != effect.isAmbient() || this.isVisible != (effect.hasIcon() && effect.hasParticles())) { // visible...?
+                    || this.ambient != effect.isAmbient() || this.visible != (effect.hasIcon() && effect.hasParticles())) { // visible...?
                 return;
             }
 
