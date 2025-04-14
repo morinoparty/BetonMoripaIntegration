@@ -1,5 +1,6 @@
 package github.tyonakaisan.betonmoripaintegration.extra.event;
 
+import github.tyonakaisan.betonmoripaintegration.util.WeightedRandom;
 import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.api.profiles.Profile;
 import org.betonquest.betonquest.api.quest.event.nullable.NullableEvent;
