@@ -45,11 +45,15 @@ public final class BetonMoripaIntegration extends JavaPlugin {
         }
 
         // experimental
+        // objective
         betonQuest.registerObjectives("extra:trade", TraderTradeObjective.class);
         betonQuest.registerObjectives("extra:bucket", BucketEntityObjective.class);
         betonQuest.registerObjectives("extra:breed", AnimalsBreedObjective.class);
         betonQuest.registerObjectives("extra:raid", RaidObjective.class);
         betonQuest.registerObjectives("extra:effect", PotionEffectObjective.class);
+        betonQuest.registerObjectives("extra:damage_on_take", DamageOnTakeObjective.class);
+        betonQuest.registerObjectives("extra:brush", BrushObjective.class);
+        // event
         betonQuest.getQuestRegistries().getEventTypes().registerCombined("weight", new WeightedRandomEventFactory(betonQuest.getVariableProcessor()));
         this.getComponentLogger().info("Experimental feature enabled. Use at your own risk as not all features have been fully debugged.");
     }
