@@ -15,7 +15,6 @@ public record ArgumentProperty<V>(List<V> values) {
         return new ArgumentProperty<>(values);
     }
 
-    @Override
     @UnmodifiableView
     public List<V> values() {
         return Collections.unmodifiableList(this.values);
