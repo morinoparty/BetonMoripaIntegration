@@ -18,10 +18,6 @@ import org.bukkit.event.entity.EntityBreedEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
-/*
-    For example:
-        extra:breed count:3 entities:cow,pig
- */
 @DefaultQualifier(NonNull.class)
 public final class AnimalsBreedObjective extends CountingObjective implements Listener {
 
@@ -36,7 +32,7 @@ public final class AnimalsBreedObjective extends CountingObjective implements Li
 
     @EventHandler(ignoreCancelled = true)
     public void onBreeding(final EntityBreedEvent event) {
-        if (event.getBreeder() instanceof Player player) {
+        if (event.getBreeder() instanceof final Player player) {
             final var entityType = event.getEntity().getType();
             if (!this.entityTypes.containsOrEmpty(entityType)) {
                 return;

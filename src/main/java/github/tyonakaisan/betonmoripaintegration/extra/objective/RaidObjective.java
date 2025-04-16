@@ -22,15 +22,15 @@ import org.jspecify.annotations.NonNull;
 public final class RaidObjective extends CountingObjective implements Listener {
 
     private final boolean victoryOnly;
-    private final VariableNumber badOmenLevel;
-    private final VariableNumber players;
+    private final VariableNumber badOmenLevelVar;
+    private final VariableNumber playersVar;
 
     public RaidObjective(final Instruction instruction) throws InstructionParseException {
         super(instruction, "extra_raid");
         this.targetAmount = instruction.getVarNum(instruction.getOptional("amount", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
         this.victoryOnly = PrimitiveArgumentParser.toBoolean(instruction, "victory_only", true);
-        this.badOmenLevel = instruction.getVarNum(instruction.getOptional("bad_omen_level", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
-        this.players = instruction.getVarNum(instruction.getOptional("players", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
+        this.badOmenLevelVar = instruction.getVarNum(instruction.getOptional("bad_omen_level", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
+        this.playersVar = instruction.getVarNum(instruction.getOptional("players", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -47,8 +47,8 @@ public final class RaidObjective extends CountingObjective implements Listener {
         winners.forEach(winner -> {
             try {
                 final var profile = PlayerConverter.getID(winner);
-                final var badOmenLevel = this.badOmenLevel.getValue(profile).intValue();
-                final var players = this.players.getValue(profile).intValue();
+                final var badOmenLevel = this.badOmenLevelVar.getValue(profile).intValue();
+                final var players = this.playersVar.getValue(profile).intValue();
 
                 // check bad omen level & winners
                 if (badOmenLevel > raid.getBadOmenLevel() || players > winners.size()) {

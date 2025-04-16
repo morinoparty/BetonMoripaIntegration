@@ -49,7 +49,7 @@ public final class PotionEffectObjective extends CountingObjective implements Li
 
     @EventHandler(ignoreCancelled = true)
     public void onEffect(final EntityPotionEffectEvent event) throws QuestRuntimeException {
-        if (event.getEntity() instanceof Player player) {
+        if (event.getEntity() instanceof final Player player) {
             final @Nullable PotionEffect effect = event.getNewEffect();
             if (effect == null) {
                 return;

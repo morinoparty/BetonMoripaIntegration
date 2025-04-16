@@ -18,17 +18,13 @@ import org.bukkit.event.player.PlayerBucketEntityEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
-/*
-    For example:
-        bucketObj: "extra:bucket count:3 entities:cod,tropical_fish,salmon spawn_reasons:natural notify events:doneEvent"
- */
 @DefaultQualifier(NonNull.class)
 public final class BucketEntityObjective extends CountingObjective implements Listener {
 
     private final ArgumentProperty<CreatureSpawnEvent.SpawnReason> spawnReasons;
     private final ArgumentProperty<EntityType> entityTypes;
 
-    public BucketEntityObjective(Instruction instruction) throws InstructionParseException {
+    public BucketEntityObjective(final Instruction instruction) throws InstructionParseException {
         super(instruction, "extra_bucket");
         this.targetAmount = instruction.getVarNum(instruction.getOptional("amount", "1"), VariableNumber.NOT_LESS_THAN_ONE_CHECKER);
         this.spawnReasons = new EnumArgumentParser<>(CreatureSpawnEvent.SpawnReason.class)

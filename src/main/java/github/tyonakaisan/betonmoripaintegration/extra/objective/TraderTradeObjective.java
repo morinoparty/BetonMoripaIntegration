@@ -25,10 +25,6 @@ import org.bukkit.event.Listener;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
-/*
-    For example:
-        tradeObj: "extra:trade test.tradeTestItem amount:10 trader:villager villager:plains,snow profession:cleric,farmer notify events:doneEvent"
- */
 @DefaultQualifier(NonNull.class)
 public final class TraderTradeObjective extends CountingObjective implements Listener {
 
@@ -37,7 +33,7 @@ public final class TraderTradeObjective extends CountingObjective implements Lis
     private final ArgumentProperty<Villager.Type> villagerTypes;
     private final ArgumentProperty<Villager.Profession> villagerProfessionTypes;
     private final @Nullable String name;
-    private final boolean usesProgressForItemAmount;
+    private final boolean progressForItemAmount;
 
     public TraderTradeObjective(final Instruction instruction) throws InstructionParseException {
         super(instruction, "extra_trade");
@@ -51,14 +47,14 @@ public final class TraderTradeObjective extends CountingObjective implements Lis
         this.villagerProfessionTypes = new RegistryArgumentParser<>(RegistryKey.VILLAGER_PROFESSION)
                 .parse(instruction, "professions");
         this.name = instruction.getOptional("name", null);
-        this.usesProgressForItemAmount = PrimitiveArgumentParser.toBoolean(instruction, "uses_progress_for_item_amount", true);
+        this.progressForItemAmount = PrimitiveArgumentParser.toBoolean(instruction, "progress_for_item_amount", true);
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onTrade(final PlayerTradeEvent event) {
         final var itemStack = event.getTrade().getResult();
         final var trader = event.getVillager();
-        final @Nullable TraderType traderType = TraderType.fromEntityType(trader.getType());
+        final @Nullable TraderType traderType = TraderType.fromBukkitEntityType(trader.getType());
 
         if (traderType == null) {
             return;
@@ -69,7 +65,7 @@ public final class TraderTradeObjective extends CountingObjective implements Lis
             return;
         }
 
-        if (trader instanceof Villager villager) {
+        if (trader instanceof final Villager villager) {
             if (!this.villagerTypes.containsOrEmpty(villager.getVillagerType())) {
                 return;
             }
@@ -82,7 +78,7 @@ public final class TraderTradeObjective extends CountingObjective implements Lis
         final var profile = PlayerConverter.getID(event.getPlayer());
         if ((this.items.values().isEmpty() || this.items.values().stream().anyMatch(item -> item.compare(event.getTrade().getResult())))
                 && this.containsPlayer(profile) && this.checkConditions(profile)) {
-            final var progress = this.usesProgressForItemAmount ? itemStack.getAmount() : 1;
+            final var progress = this.progressForItemAmount ? itemStack.getAmount() : 1;
             this.getCountingData(profile).progress(progress);
             this.completeIfDoneOrNotify(profile);
         }
@@ -99,25 +95,18 @@ public final class TraderTradeObjective extends CountingObjective implements Lis
     }
 
     public enum TraderType {
-        VILLAGER(EntityType.VILLAGER),
-        WANDERING_TRADER(EntityType.WANDERING_TRADER);
+        VILLAGER(),
+        WANDERING_TRADER();
 
-        private final EntityType type;
-
-        TraderType(final EntityType type) {
-            this.type = type;
+        TraderType() {
         }
 
-        public static @Nullable TraderType fromEntityType(final EntityType entityType) {
+        public static @Nullable TraderType fromBukkitEntityType(final EntityType entityType) {
             return switch (entityType) {
                 case VILLAGER -> VILLAGER;
                 case WANDERING_TRADER -> WANDERING_TRADER;
                 default -> null;
             };
-        }
-
-        public EntityType getType() {
-            return this.type;
         }
     }
 }
