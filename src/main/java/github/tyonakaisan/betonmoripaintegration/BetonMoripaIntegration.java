@@ -3,7 +3,7 @@ package github.tyonakaisan.betonmoripaintegration;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
-import github.tyonakaisan.betonmoripaintegration.extra.event.WeightedRandomEventFactory;
+import github.tyonakaisan.betonmoripaintegration.extra.event.weight.WeightedRandomEventFactory;
 import github.tyonakaisan.betonmoripaintegration.extra.objective.*;
 import github.tyonakaisan.betonmoripaintegration.integration.griefprevention.GriefPreventionClaimCreateObjective;
 import github.tyonakaisan.betonmoripaintegration.integration.huskhomes.HuskHomesCreateObjective;

@@ -1,4 +1,4 @@
-package github.tyonakaisan.betonmoripaintegration.extra.event;
+package github.tyonakaisan.betonmoripaintegration.extra.event.weight;
 
 import org.betonquest.betonquest.Instruction;
 import org.betonquest.betonquest.api.quest.event.Event;

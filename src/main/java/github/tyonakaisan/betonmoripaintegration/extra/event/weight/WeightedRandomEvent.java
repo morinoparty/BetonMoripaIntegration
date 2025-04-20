@@ -1,4 +1,4 @@
-package github.tyonakaisan.betonmoripaintegration.extra.event;
+package github.tyonakaisan.betonmoripaintegration.extra.event.weight;
 
 import github.tyonakaisan.betonmoripaintegration.util.WeightedRandom;
 import org.betonquest.betonquest.BetonQuest;
