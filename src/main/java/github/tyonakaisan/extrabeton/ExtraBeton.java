@@ -61,8 +61,8 @@ public final class ExtraBeton extends JavaPlugin {
         betonQuest.registerObjectives("extra:brush", BrushObjective.class);
         // event
         final var variableProcessor = betonQuest.getVariableProcessor();
-        betonQuest.getQuestRegistries().getEventTypes().registerCombined("weight", new WeightedRandomEventFactory(variableProcessor));
-        betonQuest.getQuestRegistries().getEventTypes().registerCombined("run_schedule", new ScheduleEventFactory(betonQuest));
+        betonQuest.getQuestRegistries().getEventTypes().registerCombined("extra:weight", new WeightedRandomEventFactory(variableProcessor));
+        betonQuest.getQuestRegistries().getEventTypes().registerCombined("extra:run_schedule", new ScheduleEventFactory(betonQuest));
 
         this.getComponentLogger().info(MiniMessage.miniMessage().deserialize("""
                 <yellow>Experimental features are enabled.
