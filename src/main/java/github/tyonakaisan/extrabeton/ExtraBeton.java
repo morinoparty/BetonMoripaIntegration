@@ -57,7 +57,7 @@ public final class ExtraBeton extends JavaPlugin {
         betonQuest.registerObjectives("extra:breed", AnimalsBreedObjective.class);
         betonQuest.registerObjectives("extra:raid", RaidObjective.class);
         betonQuest.registerObjectives("extra:effect", PotionEffectObjective.class);
-        betonQuest.registerObjectives("extra:damage_on_take", DamageOnTakeObjective.class);
+        betonQuest.registerObjectives("extra:damage", DamageObjective.class);
         betonQuest.registerObjectives("extra:brush", BrushObjective.class);
         // event
         final var variableProcessor = betonQuest.getVariableProcessor();
