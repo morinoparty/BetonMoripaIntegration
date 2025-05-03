@@ -3,16 +3,19 @@ package github.tyonakaisan.betonmoripaintegration;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
+import github.tyonakaisan.betonmoripaintegration.extra.event.scedule.ScheduleEventFactory;
 import github.tyonakaisan.betonmoripaintegration.extra.event.weight.WeightedRandomEventFactory;
 import github.tyonakaisan.betonmoripaintegration.extra.objective.*;
 import github.tyonakaisan.betonmoripaintegration.integration.griefprevention.GriefPreventionClaimCreateObjective;
 import github.tyonakaisan.betonmoripaintegration.integration.huskhomes.HuskHomesCreateObjective;
 import github.tyonakaisan.betonmoripaintegration.integration.quickshop.QuickShopCreateObjective;
 import github.tyonakaisan.betonmoripaintegration.integration.quickshop.QuickShopSellObjective;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.betonquest.betonquest.BetonQuest;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.framework.qual.DefaultQualifier;
 
 @DefaultQualifier(NonNull.class)
@@ -20,12 +23,15 @@ import org.checkerframework.framework.qual.DefaultQualifier;
 public final class BetonMoripaIntegration extends JavaPlugin {
 
     private final Injector injector;
+    private static @Nullable BetonMoripaIntegration instance;
 
     @Inject
     public BetonMoripaIntegration(
             final Injector bootstrapInjector
     ) {
         this.injector = bootstrapInjector.createChildInjector(new BetonMoripaIntegrationModule(this));
+
+        instance = this;
     }
 
     @Override
@@ -54,8 +60,14 @@ public final class BetonMoripaIntegration extends JavaPlugin {
         betonQuest.registerObjectives("extra:damage_on_take", DamageOnTakeObjective.class);
         betonQuest.registerObjectives("extra:brush", BrushObjective.class);
         // event
-        betonQuest.getQuestRegistries().getEventTypes().registerCombined("weight", new WeightedRandomEventFactory(betonQuest.getVariableProcessor()));
-        this.getComponentLogger().info("Experimental feature enabled. Use at your own risk as not all features have been fully debugged.");
+        final var variableProcessor = betonQuest.getVariableProcessor();
+        betonQuest.getQuestRegistries().getEventTypes().registerCombined("weight", new WeightedRandomEventFactory(variableProcessor));
+        betonQuest.getQuestRegistries().getEventTypes().registerCombined("run_schedule", new ScheduleEventFactory(betonQuest));
+
+        this.getComponentLogger().info(MiniMessage.miniMessage().deserialize("""
+                <yellow>Experimental features are enabled.
+                Not all features have been fully debugged and should be used at your own risk.
+                Experimental features are subject to change or removal without notice."""));
     }
 
     @Override
@@ -73,5 +85,11 @@ public final class BetonMoripaIntegration extends JavaPlugin {
 
     public static boolean quickShopLoaded() {
         return Bukkit.getPluginManager().isPluginEnabled("QuickShop-Hikari");
+    }
+
+    public static BetonMoripaIntegration instance() {
+        if (instance == null) {
+            throw new IllegalStateException("BetonMoripaIntegration not initialized!");
+        } else return instance;
     }
 }

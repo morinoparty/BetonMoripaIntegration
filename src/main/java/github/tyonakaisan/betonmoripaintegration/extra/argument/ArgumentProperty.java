@@ -6,6 +6,7 @@ import org.jetbrains.annotations.UnmodifiableView;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @SuppressWarnings("BooleanMethodIsAlwaysInverted")
 @DefaultQualifier(NonNull.class)
@@ -15,14 +16,18 @@ public record ArgumentProperty<V>(List<V> values) {
         return new ArgumentProperty<>(values);
     }
 
-    @UnmodifiableView
-    public List<V> values() {
-        return Collections.unmodifiableList(this.values);
-    }
-
     public boolean containsOrEmpty(final V value) {
         if (this.values.isEmpty()) {
             return true;
         } else return this.values.contains(value);
+    }
+
+    public Optional<V> getFirst() {
+        return this.values.stream().findFirst();
+    }
+
+    @UnmodifiableView
+    public List<V> values() {
+        return Collections.unmodifiableList(this.values);
     }
 }
