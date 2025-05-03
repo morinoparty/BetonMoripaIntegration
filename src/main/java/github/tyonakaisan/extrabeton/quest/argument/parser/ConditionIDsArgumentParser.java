@@ -12,7 +12,7 @@ import org.checkerframework.framework.qual.DefaultQualifier;
 public final class ConditionIDsArgumentParser extends ArraysArgumentParser<ConditionID> {
 
     @Override
-    public ArgumentProperty<ConditionID> parse(Instruction instruction, String key) {
+    public ArgumentProperty<ConditionID> parse(final Instruction instruction, final String key) {
         final var packageID = instruction.getPackage();
         final var values = this.getValues(instruction, key)
                 .map(s -> {
