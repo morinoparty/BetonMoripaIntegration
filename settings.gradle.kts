@@ -1,1 +1,1 @@
-rootProject.name = "BetonMoripaIntegration"
+rootProject.name = "ExtraBeton"

@@ -40,7 +40,7 @@ dependencies {
     paperLibrary(libs.guice)
 }
 
-version = "1.3.0"
+version = "2.0.0"
 
 paper {
     authors = listOf("tyonakaisan")
@@ -49,10 +49,10 @@ paper {
     generateLibrariesJson = true
     foliaSupported = false
 
-    val mainPackage = "github.tyonakaisan.betonmoripaintegration"
-    main = "$mainPackage.BetonMoripaIntegration"
-    bootstrapper = "$mainPackage.BetonMoripaIntegrationBootstrap"
-    loader = "$mainPackage.BetonMoripaIntegrationLoader"
+    val mainPackage = "github.tyonakaisan.extrabeton"
+    main = "$mainPackage.ExtraBeton"
+    bootstrapper = "$mainPackage.ExtraBetonBootstrap"
+    loader = "$mainPackage.ExtraBetonLoader"
 
     serverDependencies {
         register("BetonQuest") {

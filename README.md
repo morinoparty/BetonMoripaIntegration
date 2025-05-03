@@ -1,2 +1,2 @@
-# BetonMoripaIntegration
-BetonQuestにクエストを追加する
+# ExtraBeton
+BetonQuestに色々追加する
