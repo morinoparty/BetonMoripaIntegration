@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import github.tyonakaisan.extrabeton.quest.event.scedule.ScheduleEventFactory;
+import github.tyonakaisan.extrabeton.quest.event.sound.SoundEventFactory;
 import github.tyonakaisan.extrabeton.quest.event.weight.WeightedRandomEventFactory;
 import github.tyonakaisan.extrabeton.quest.objective.*;
 import github.tyonakaisan.extrabeton.compat.griefprevention.GriefPreventionClaimCreateObjective;
@@ -61,6 +62,7 @@ public final class ExtraBeton extends JavaPlugin {
         betonQuest.registerObjectives("extra:brush", BrushObjective.class);
         // event
         final var variableProcessor = betonQuest.getVariableProcessor();
+        betonQuest.getQuestRegistries().getEventTypes().registerCombined("extra:sound", new SoundEventFactory(variableProcessor));
         betonQuest.getQuestRegistries().getEventTypes().registerCombined("extra:weight", new WeightedRandomEventFactory(variableProcessor));
         betonQuest.getQuestRegistries().getEventTypes().registerCombined("extra:run_schedule", new ScheduleEventFactory(betonQuest));
 
