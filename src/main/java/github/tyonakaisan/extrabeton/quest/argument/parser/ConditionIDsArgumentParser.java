@@ -1,7 +1,6 @@
 package github.tyonakaisan.extrabeton.quest.argument.parser;
 
 import github.tyonakaisan.extrabeton.quest.argument.ArgumentProperty;
-import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import org.betonquest.betonquest.Instruction;
 import org.betonquest.betonquest.exceptions.ObjectNotFoundException;
 import org.betonquest.betonquest.id.ConditionID;
@@ -19,8 +18,7 @@ public final class ConditionIDsArgumentParser extends ArraysArgumentParser<Condi
                     try {
                         return new ConditionID(packageID, s);
                     } catch (final ObjectNotFoundException e) {
-                        ComponentLogger.logger().info("Couldn't find condition" + s);
-                        return null;
+                        throw new IllegalArgumentException("Invalid or unknown conditionID: " + s);
                     }
                 })
                 .toList();

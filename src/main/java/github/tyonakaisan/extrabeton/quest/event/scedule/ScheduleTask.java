@@ -31,22 +31,22 @@ public final class ScheduleTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        if (this.remainingTicks > 0) {
+            this.remainingTicks--;
+        }
+
+        if (!this.checkConditions()) {
+            return;
+        }
+
         try {
-            if (this.remainingTicks > 0) {
-                this.remainingTicks--;
-            }
-
-            if (!this.checkConditions()) {
-                return;
-            }
-
             this.schedule.event().fire(this.profile);
-
-            if (this.remainingTicks == 0) {
-                this.cancel();
-            }
         } catch (final QuestRuntimeException e) {
             throw new RuntimeException(e);
+        }
+
+        if (this.remainingTicks == 0) {
+            this.cancel();
         }
     }
 

@@ -51,24 +51,23 @@ public final class SoundEventFactory implements EventFactory, StaticEventFactory
 
     private Pitch createPitch(final Instruction instruction) throws InstructionParseException {
         final var pitch = instruction.getOptional("pitch", "1.0");
-        if (pitch.matches(SemitoneUtils.PATTERN_REGEX)) {
-            return new Pitch.Semitone(pitch);
-        } else {
-            return new Pitch.Simple(new VariableNumber(this.variableProcessor, instruction.getPackage(), pitch));
-        }
+
+        return pitch.matches(SemitoneUtils.PATTERN_REGEX)
+                ? new Pitch.Semitone(pitch)
+                : new Pitch.Simple(new VariableNumber(this.variableProcessor, instruction.getPackage(), pitch));
     }
 
     private @Nullable VariableNumber createSeed(final Instruction instruction) throws InstructionParseException {
         final @Nullable String seed = instruction.getOptional("seed");
-        if (seed != null) {
-            return instruction.getVarNum(seed);
-        } else return null;
+        return seed != null
+                ? instruction.getVarNum(seed)
+                : null;
     }
 
     private @Nullable VariableLocation createLocation(final Instruction instruction) throws InstructionParseException {
         final @Nullable String location = instruction.getOptional("location");
-        if (location != null) {
-            return instruction.getLocation(location);
-        } else return null;
+        return location != null
+                ? instruction.getLocation(location)
+                : null;
     }
 }

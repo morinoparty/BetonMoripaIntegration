@@ -1,4 +1,4 @@
-package github.tyonakaisan.extrabeton.util;
+package github.tyonakaisan.extrabeton.quest.event.weight;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;

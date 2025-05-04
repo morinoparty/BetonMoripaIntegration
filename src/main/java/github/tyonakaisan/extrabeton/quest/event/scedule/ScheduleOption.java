@@ -17,7 +17,7 @@ public record ScheduleOption(
         VariableNumber total,
         TimeUnit timeUnit,
         boolean cancelOnLogout,
-        ArgumentProperty<ConditionID> conditions // This may not be supported.
+        ArgumentProperty<ConditionID> conditions
 ) {
 
     public long delay(final @Nullable Profile profile) throws QuestRuntimeException {

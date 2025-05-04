@@ -1,6 +1,5 @@
 package github.tyonakaisan.extrabeton.quest.event.weight;
 
-import github.tyonakaisan.extrabeton.util.WeightedRandom;
 import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.api.profiles.Profile;
 import org.betonquest.betonquest.api.quest.event.nullable.NullableEvent;
@@ -29,7 +28,7 @@ public final class WeightedRandomEvent implements NullableEvent {
     public void execute(final @Nullable Profile profile) throws QuestRuntimeException {
         final WeightedRandom<EventID> weightedEventIDs = new WeightedRandom<>();
         for (final WeightedEvent weightedEvent : this.events) {
-            weightedEventIDs.add(weightedEvent.eventID(), weightedEvent.variableNumber().getValue(profile).doubleValue());
+            weightedEventIDs.add(weightedEvent.eventID(), weightedEvent.weight(profile));
         }
 
         final List<EventID> selectIDs = new ArrayList<>();
@@ -45,6 +44,9 @@ public final class WeightedRandomEvent implements NullableEvent {
         selectIDs.forEach(selectID -> BetonQuest.event(profile, selectID));
     }
 
-    public record WeightedEvent(EventID eventID, VariableNumber variableNumber) {
+    public record WeightedEvent(EventID eventID, VariableNumber weight) {
+        public double weight(final @Nullable Profile profile) throws QuestRuntimeException {
+            return this.weight.getValue(profile).doubleValue();
+        }
     }
 }

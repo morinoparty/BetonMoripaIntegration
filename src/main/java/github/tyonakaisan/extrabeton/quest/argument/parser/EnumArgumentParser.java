@@ -1,12 +1,9 @@
 package github.tyonakaisan.extrabeton.quest.argument.parser;
 
 import github.tyonakaisan.extrabeton.quest.argument.ArgumentProperty;
-import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import org.betonquest.betonquest.Instruction;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.framework.qual.DefaultQualifier;
-
-import java.util.Objects;
 
 @DefaultQualifier(NonNull.class)
 public final class EnumArgumentParser<T extends Enum<T>> extends ArraysArgumentParser<T> {
@@ -24,11 +21,9 @@ public final class EnumArgumentParser<T extends Enum<T>> extends ArraysArgumentP
                     try {
                         return Enum.valueOf(this.clazz, s.toUpperCase());
                     } catch (final IllegalArgumentException e) {
-                        ComponentLogger.logger().warn("Invalid enum value: " + s);
-                        return null;
+                        throw new IllegalArgumentException("Invalid enum value: " + s);
                     }
                 })
-                .filter(Objects::nonNull)
                 .toList();
         return ArgumentProperty.of(values);
     }

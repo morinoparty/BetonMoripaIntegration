@@ -25,7 +25,6 @@ import org.checkerframework.framework.qual.DefaultQualifier;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 // あんま良くないかも
@@ -54,8 +53,13 @@ public final class ScheduleEventFactory implements EventFactory, StaticEventFact
         final var instructions = this.splitInstructionParts(instruction);
         final var pattern = Pattern.compile("options:(.*?)\\s+event_instruction:(.+)");
         final List<Schedule> result = instructions.stream()
-                .map(inst -> this.createSchedule(inst, pattern))
-                .filter(Objects::nonNull)
+                .map(inst -> {
+                    try {
+                        return this.createSchedule(inst, pattern);
+                    } catch (final InstructionParseException e) {
+                        throw new IllegalArgumentException("Failed to parse instruction: " + inst, e);
+                    }
+                })
                 .toList();
         return new NullableEventAdapter(new ScheduleEvent(result));
     }
@@ -84,7 +88,7 @@ public final class ScheduleEventFactory implements EventFactory, StaticEventFact
         return result;
     }
 
-    private @Nullable Schedule createSchedule(final Instruction instruction, final Pattern pattern) {
+    private Schedule createSchedule(final Instruction instruction, final Pattern pattern) throws InstructionParseException {
         final var matcher = pattern.matcher(instruction.toString());
         if (matcher.matches()) {
             final ScheduleOption option;
@@ -93,10 +97,10 @@ public final class ScheduleEventFactory implements EventFactory, StaticEventFact
                 option = this.createScheduleOption(new Instruction(new QuotingTokenizer(), this.logger, instruction.getPackage(), instruction.getID(), matcher.group(1)));
                 event = this.createEvent(matcher.group(2), instruction.getPackage());
             } catch (final InstructionParseException e) {
-                throw new RuntimeException(e);
+                throw new InstructionParseException(e);
             }
             return new Schedule(option, event);
-        } else return null;
+        } else throw new InstructionParseException("Invalid pattern: " + instruction);
     }
 
     private ScheduleOption createScheduleOption(final Instruction instruction) throws InstructionParseException {

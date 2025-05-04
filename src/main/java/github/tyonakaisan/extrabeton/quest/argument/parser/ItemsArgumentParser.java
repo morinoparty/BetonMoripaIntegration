@@ -20,7 +20,7 @@ public final class ItemsArgumentParser extends ArraysArgumentParser<QuestItem> {
                     try {
                         return new QuestItem(new ItemID(packageID, s));
                     } catch (final ObjectNotFoundException | InstructionParseException e) {
-                        throw new RuntimeException("Could not load '" + s + "' item: " + e.getMessage(), e);
+                        throw new IllegalArgumentException("Invalid or unknown item id: " + s);
                     }
                 })
                 .toList();

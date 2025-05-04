@@ -33,7 +33,7 @@ public final class ScheduleEvent implements NullableEvent {
                 new ScheduleTask(profile, schedule)
                         .runTaskTimer(instance, delay, period);
             } catch (final QuestRuntimeException e) {
-                throw  new RuntimeException(e);
+                throw new IllegalArgumentException(e);
             }
         });
     }
