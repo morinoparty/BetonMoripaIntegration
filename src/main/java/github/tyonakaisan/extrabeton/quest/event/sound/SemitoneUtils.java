@@ -1,7 +1,6 @@
 package github.tyonakaisan.extrabeton.quest.event.sound;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.framework.qual.DefaultQualifier;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Map;
 import java.util.Optional;
@@ -9,7 +8,7 @@ import java.util.regex.Pattern;
 
 import static java.util.Map.entry;
 
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public final class SemitoneUtils {
 
     public static final String PATTERN_REGEX = "(?i)^([A-G][#b]?)(\\d+)$";

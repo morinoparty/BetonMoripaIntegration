@@ -4,13 +4,12 @@ import com.google.inject.AbstractModule;
 import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.plugin.configuration.PluginMeta;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.framework.qual.DefaultQualifier;
+import org.jspecify.annotations.NullMarked;
 
 import java.nio.file.Path;
 
 @SuppressWarnings("UnstableApiUsage")
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public final class ExtraBetonBootstrapModule extends AbstractModule {
 
     private final BootstrapContext context;

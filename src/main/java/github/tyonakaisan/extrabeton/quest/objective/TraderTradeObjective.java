@@ -1,6 +1,5 @@
 package github.tyonakaisan.extrabeton.quest.objective;
 
-import edu.umd.cs.findbugs.annotations.NonNull;
 import github.tyonakaisan.extrabeton.quest.argument.ArgumentProperty;
 import github.tyonakaisan.extrabeton.quest.argument.parser.EnumArgumentParser;
 import github.tyonakaisan.extrabeton.quest.argument.parser.ItemsArgumentParser;
@@ -22,10 +21,10 @@ import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.checkerframework.framework.qual.DefaultQualifier;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public final class TraderTradeObjective extends CountingObjective implements Listener {
 
     private final ArgumentProperty<QuestItem> items;

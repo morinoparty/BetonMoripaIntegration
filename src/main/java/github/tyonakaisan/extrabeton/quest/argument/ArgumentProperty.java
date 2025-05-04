@@ -1,15 +1,14 @@
 package github.tyonakaisan.extrabeton.quest.argument;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.framework.qual.DefaultQualifier;
 import org.jetbrains.annotations.UnmodifiableView;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public record ArgumentProperty<V>(List<V> values) {
 
     public static <V> ArgumentProperty<V> of(final List<V> values) {

@@ -4,11 +4,10 @@ import com.google.gson.Gson;
 import io.papermc.paper.plugin.loader.PluginClasspathBuilder;
 import io.papermc.paper.plugin.loader.PluginLoader;
 import io.papermc.paper.plugin.loader.library.impl.MavenLibraryResolver;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.framework.qual.DefaultQualifier;
 import org.eclipse.aether.artifact.DefaultArtifact;
 import org.eclipse.aether.graph.Dependency;
 import org.eclipse.aether.repository.RemoteRepository;
+import org.jspecify.annotations.NullMarked;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,7 +18,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 @SuppressWarnings({"UnstableApiUsage", "unused"})
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public final class ExtraBetonLoader implements PluginLoader {
 
     @Override

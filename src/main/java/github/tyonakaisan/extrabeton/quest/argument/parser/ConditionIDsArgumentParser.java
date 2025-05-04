@@ -4,10 +4,9 @@ import github.tyonakaisan.extrabeton.quest.argument.ArgumentProperty;
 import org.betonquest.betonquest.Instruction;
 import org.betonquest.betonquest.exceptions.ObjectNotFoundException;
 import org.betonquest.betonquest.id.ConditionID;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.framework.qual.DefaultQualifier;
+import org.jspecify.annotations.NullMarked;
 
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public final class ConditionIDsArgumentParser extends ArraysArgumentParser<ConditionID> {
 
     @Override

@@ -19,16 +19,15 @@ import org.betonquest.betonquest.instruction.variable.VariableNumber;
 import org.betonquest.betonquest.item.typehandler.HandlerUtil;
 import org.betonquest.betonquest.quest.event.folder.TimeUnit;
 import org.betonquest.betonquest.quest.legacy.LegacyTypeFactory;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.checkerframework.framework.qual.DefaultQualifier;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 // あんま良くないかも
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public final class ScheduleEventFactory implements EventFactory, StaticEventFactory {
 
     private final BetonQuest betonQuest;

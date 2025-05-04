@@ -1,13 +1,12 @@
 package github.tyonakaisan.extrabeton.quest.event.weight;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.framework.qual.DefaultQualifier;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.NavigableMap;
 import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
 
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public final class WeightedRandom<T> {
 
     private final NavigableMap<Double, T> map = new TreeMap<>();

@@ -7,11 +7,10 @@ import net.kyori.adventure.key.Key;
 import org.betonquest.betonquest.Instruction;
 import org.bukkit.Keyed;
 import org.bukkit.Registry;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.checkerframework.framework.qual.DefaultQualifier;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public final class RegistryArgumentParser<T extends Keyed> extends ArraysArgumentParser<T> {
 
     private final RegistryKey<T> registryKey;

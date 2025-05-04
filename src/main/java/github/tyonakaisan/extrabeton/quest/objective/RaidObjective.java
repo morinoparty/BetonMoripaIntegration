@@ -15,10 +15,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.raid.RaidFinishEvent;
-import org.checkerframework.framework.qual.DefaultQualifier;
-import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public final class RaidObjective extends CountingObjective implements Listener {
 
     private final boolean victoryOnly;

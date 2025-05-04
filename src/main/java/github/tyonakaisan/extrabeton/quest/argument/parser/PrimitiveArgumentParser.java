@@ -1,10 +1,9 @@
 package github.tyonakaisan.extrabeton.quest.argument.parser;
 
 import org.betonquest.betonquest.Instruction;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.framework.qual.DefaultQualifier;
+import org.jspecify.annotations.NullMarked;
 
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public final class PrimitiveArgumentParser {
 
     private PrimitiveArgumentParser() {

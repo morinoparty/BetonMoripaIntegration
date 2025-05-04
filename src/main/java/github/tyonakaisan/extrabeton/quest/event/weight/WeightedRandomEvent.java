@@ -6,14 +6,13 @@ import org.betonquest.betonquest.api.quest.event.nullable.NullableEvent;
 import org.betonquest.betonquest.exceptions.QuestRuntimeException;
 import org.betonquest.betonquest.id.EventID;
 import org.betonquest.betonquest.instruction.variable.VariableNumber;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.framework.qual.DefaultQualifier;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public final class WeightedRandomEvent implements NullableEvent {
 
     private final List<WeightedEvent> events;

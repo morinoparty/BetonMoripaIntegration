@@ -4,13 +4,12 @@ import github.tyonakaisan.extrabeton.ExtraBeton;
 import org.betonquest.betonquest.api.profiles.Profile;
 import org.betonquest.betonquest.api.quest.event.nullable.NullableEvent;
 import org.betonquest.betonquest.exceptions.QuestRuntimeException;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.checkerframework.framework.qual.DefaultQualifier;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public final class ScheduleEvent implements NullableEvent {
 
     private final List<Schedule> schedules;

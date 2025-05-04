@@ -1,10 +1,9 @@
 package github.tyonakaisan.extrabeton.quest.event.scedule;
 
 import org.betonquest.betonquest.api.QuestEvent;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.framework.qual.DefaultQualifier;
+import org.jspecify.annotations.NullMarked;
 
-@DefaultQualifier(NonNull.class)
+@NullMarked
 public record Schedule(
         ScheduleOption option,
         QuestEvent event

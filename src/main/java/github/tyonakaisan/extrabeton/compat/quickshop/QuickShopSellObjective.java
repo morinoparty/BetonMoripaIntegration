@@ -12,7 +12,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class QuickShopSellObjective extends Objective implements Listener {
 
     public QuickShopSellObjective(final Instruction instruction) throws InstructionParseException {

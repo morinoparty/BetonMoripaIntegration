@@ -3,23 +3,22 @@ package github.tyonakaisan.extrabeton;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
-import github.tyonakaisan.extrabeton.quest.event.scedule.ScheduleEventFactory;
-import github.tyonakaisan.extrabeton.quest.event.sound.SoundEventFactory;
-import github.tyonakaisan.extrabeton.quest.event.weight.WeightedRandomEventFactory;
-import github.tyonakaisan.extrabeton.quest.objective.*;
 import github.tyonakaisan.extrabeton.compat.griefprevention.GriefPreventionClaimCreateObjective;
 import github.tyonakaisan.extrabeton.compat.huskhomes.HuskHomesCreateObjective;
 import github.tyonakaisan.extrabeton.compat.quickshop.QuickShopCreateObjective;
 import github.tyonakaisan.extrabeton.compat.quickshop.QuickShopSellObjective;
+import github.tyonakaisan.extrabeton.quest.event.scedule.ScheduleEventFactory;
+import github.tyonakaisan.extrabeton.quest.event.sound.SoundEventFactory;
+import github.tyonakaisan.extrabeton.quest.event.weight.WeightedRandomEventFactory;
+import github.tyonakaisan.extrabeton.quest.objective.*;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.betonquest.betonquest.BetonQuest;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.checkerframework.framework.qual.DefaultQualifier;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
-@DefaultQualifier(NonNull.class)
+@NullMarked
 @Singleton
 public final class ExtraBeton extends JavaPlugin {
 
